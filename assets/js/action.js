@@ -15,7 +15,6 @@ function checkQuestion(answer){
     endGame()
   }
   else{
-
     generateQuestions()
   }
 }
@@ -38,7 +37,11 @@ function generateQuestions() {
 function start(){
   console.log('clicked')
   generateQuestions()
+  startTimer()
   //timer
+  var timer = document.getElementById("mytime");
+  var counter = setInterval(function(){
+    countdown()}, 1000);
 
 };
 
