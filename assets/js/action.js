@@ -1,4 +1,4 @@
-
+var timeEl = document.getElementById("timer")
 var startButton = document.getElementById('start')
 var mainContent = document.getElementById('mainContent')
 var count = 0
@@ -7,42 +7,48 @@ function endGame() {
   console.log('end of game')
 }
 
-function checkQuestion(answer){
+function checkQuestion(answer) {
   console.log(answer)
-  console.log(questions[count].choices[answer]=== questions[count].answer)
+  console.log(questions[count].choices[answer] === questions[count].answer)
   count++
-  if(count === questions.length){
+  if (count === questions.length) {
     endGame()
   }
-  else{
+  else {
     generateQuestions()
   }
 }
 
 function generateQuestions() {
-  mainContent.innerHTML= ""
+  mainContent.innerHTML = ""
   var questionTitle = document.createElement('h1')
   questionTitle.textContent = questions[count].title
   mainContent.appendChild(questionTitle)
   var questionList = document.createElement('ul')
-  questionList.setAttribute('class','list-unstyled')
+  questionList.setAttribute('class', 'list-unstyled')
   for (let i = 0; i < questions[count].choices.length; i++) {
     var listItem = document.createElement('li')
-    listItem.innerHTML= '<button onclick="checkQuestion('+i+')">'+questions[count].choices[i]+'</button>'
+    listItem.innerHTML = '<button onclick="checkQuestion(' + i + ')">' + questions[count].choices[i] + '</button>'
     questionList.appendChild(listItem)
   }
   mainContent.appendChild(questionList)
 }
 
-function start(){
+function start() {
   console.log('clicked')
   generateQuestions()
-  startTimer()
-  //timer
-  var timer = document.getElementById("mytime");
-  var counter = setInterval(function(){
-    countdown()}, 1000);
 
+  var secondsLeft = 75;
+
+  var timerInterval = setInterval(function () {
+      secondsLeft--;
+      timeEl.textContent = secondsLeft;
+
+      if (secondsLeft === 0) {
+        clearInterval(timerInterval);
+        sendMessage();
+      }
+    }, 1000);
 };
 
 startButton.addEventListener('click', start)
